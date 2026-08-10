@@ -24,6 +24,7 @@ class SettingSeeder extends Seeder
             'bride_mother'          => 'Ibu Hartini',
             'bride_instagram'       => '@riska_anggraeni',
             'bride_photo'           => '/images/placeholder-bride.jpg',
+            'whatsapp_number'       => '628123456789',
 
             // Event
             'wedding_date'          => '16 Agustus 2026',

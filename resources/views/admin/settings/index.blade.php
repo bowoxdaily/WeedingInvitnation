@@ -47,6 +47,11 @@
 </div>
 </div>
 </div>
+<div style="margin-top:1rem;padding-top:1rem;border-top:1px dashed #e5e5e5;">
+    <label class="form-label" style="color:#2D4A3E;font-weight:600;">Nomor WhatsApp Pasangan (Penerima Konfirmasi RSVP)</label>
+    <input type="text" name="whatsapp_number" value="{{ $settings['whatsapp_number'] ?? '628123456789' }}" class="form-input" placeholder="Contoh: 6281234567890">
+    <span style="font-size:0.75rem;color:#777;display:block;margin-top:0.25rem;">Gunakan format 62... (tanpa + atau strip) untuk menerima konfirmasi pesan WhatsApp dari tamu.</span>
+</div>
 </div>
 
 <div style="background:white;padding:1.5rem;margin-bottom:1.5rem;box-shadow:0 1px 8px rgba(0,0,0,0.06);">

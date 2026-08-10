@@ -20,8 +20,10 @@
 <div style="display:grid;grid-template-columns:1fr;gap:3rem;max-width:700px;margin:0 auto;" class="couple-grid">
 <div style="text-align:center;" data-aos="fade-right">
 <div style="position:relative;display:inline-block;margin-bottom:1.5rem;">
-<img src="{{ !empty($settings['groom_photo']) ? asset($settings['groom_photo']) : asset('images/placeholder-groom.jpg') }}" alt="{{ $settings['groom_nickname'] ?? 'Bowo' }}" class="couple-photo">
-<div style="position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);background:#C9A84C;color:#1F3530;font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;padding:0.25rem 0.75rem;white-space:nowrap;">THE GROOM</div>
+<div class="gold-arch-frame">
+<img src="{{ !empty($settings['groom_photo']) ? asset($settings['groom_photo']) : asset('images/placeholder-groom.jpg') }}" alt="{{ $settings['groom_nickname'] ?? 'Bowo' }}" class="couple-photo" style="width:200px;height:260px;object-fit:cover;">
+</div>
+<div style="position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);background:#C9A84C;color:#1F3530;font-size:0.6rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;padding:0.35rem 0.85rem;border-radius:9999px;box-shadow:0 4px 12px rgba(201,168,76,0.3);white-space:nowrap;z-index:2;">THE GROOM</div>
 </div>
 <h3 style="font-family:'Cormorant Garamond',Georgia,serif;font-size:2rem;color:#2D4A3E;margin-top:1.5rem;margin-bottom:0.5rem;">{{ $settings['groom_name'] ?? 'Bowo Prasetyo' }}</h3>
 <p style="font-size:0.8rem;color:#888;margin-bottom:0.25rem;">Putra dari</p>
@@ -36,8 +38,10 @@
 </div>
 <div style="text-align:center;" data-aos="fade-left">
 <div style="position:relative;display:inline-block;margin-bottom:1.5rem;">
-<img src="{{ !empty($settings['bride_photo']) ? asset($settings['bride_photo']) : asset('images/placeholder-bride.jpg') }}" alt="{{ $settings['bride_nickname'] ?? 'Riska' }}" class="couple-photo">
-<div style="position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);background:#C9A84C;color:#1F3530;font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;padding:0.25rem 0.75rem;white-space:nowrap;">THE BRIDE</div>
+<div class="gold-arch-frame">
+<img src="{{ !empty($settings['bride_photo']) ? asset($settings['bride_photo']) : asset('images/placeholder-bride.jpg') }}" alt="{{ $settings['bride_nickname'] ?? 'Riska' }}" class="couple-photo" style="width:200px;height:260px;object-fit:cover;">
+</div>
+<div style="position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);background:#C9A84C;color:#1F3530;font-size:0.6rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;padding:0.35rem 0.85rem;border-radius:9999px;box-shadow:0 4px 12px rgba(201,168,76,0.3);white-space:nowrap;z-index:2;">THE BRIDE</div>
 </div>
 <h3 style="font-family:'Cormorant Garamond',Georgia,serif;font-size:2rem;color:#2D4A3E;margin-top:1.5rem;margin-bottom:0.5rem;">{{ $settings['bride_name'] ?? 'Riska Anggraeni' }}</h3>
 <p style="font-size:0.8rem;color:#888;margin-bottom:0.25rem;">Putri dari</p>

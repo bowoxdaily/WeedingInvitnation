@@ -302,7 +302,17 @@ button, input, select, textarea {
 }
 
 .btn-gold:active {
-    transform: translateY(0);
+    transform: scale(0.95);
+    box-shadow: 0 2px 10px rgba(201, 168, 76, 0.3);
+}
+
+.btn-forest:active {
+    transform: scale(0.95);
+    box-shadow: 0 2px 10px rgba(31, 53, 48, 0.3);
+}
+
+.btn-outline-gold:active {
+    transform: scale(0.95);
 }
 
 .btn-forest {
@@ -389,6 +399,44 @@ nav.mobile-nav-bar a {
     text-decoration: none;
     padding: 0.4rem 0.75rem;
     border-radius: 9999px;
+    white-space: nowrap;
+    transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    will-change: transform, background-color, color;
+}
+
+nav.mobile-nav-bar a:hover, nav.mobile-nav-bar a.active {
+    color: #1F3530;
+    background: #C9A84C;
+    font-weight: 600;
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(201, 168, 76, 0.4);
+}
+
+nav.mobile-nav-bar a:active {
+    transform: scale(0.92);
+}
+
+/* Pulsing aura for floating music button */
+@keyframes audio-pulse-ring {
+    0% {
+        box-shadow: 0 0 0 0 rgba(201, 168, 76, 0.6), 0 8px 25px rgba(0, 0, 0, 0.3);
+    }
+    70% {
+        box-shadow: 0 0 0 14px rgba(201, 168, 76, 0), 0 8px 25px rgba(0, 0, 0, 0.3);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(201, 168, 76, 0), 0 8px 25px rgba(0, 0, 0, 0.3);
+    }
+}
+
+.music-floating-btn {
+    animation: audio-pulse-ring 2.5s infinite;
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.music-floating-btn:active {
+    transform: scale(0.88) !important;
+}
 /* ==========================================================================
    6. SECTION SPECIFIC CARDS & GRID RESPONSIVENESS
    ========================================================================== */
@@ -850,11 +898,13 @@ nav.mobile-nav-bar a {
 }
 
 .gift-card {
-    background: #FFFDF9;
-    border: 1px solid rgba(201, 168, 76, 0.3);
+    background: rgba(255, 253, 249, 0.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(201, 168, 76, 0.35);
     padding: 1.75rem 1.5rem;
-    border-radius: 14px;
-    box-shadow: 0 6px 25px rgba(201, 168, 76, 0.08);
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(31, 53, 48, 0.06), 0 0 15px rgba(201, 168, 76, 0.08);
     position: relative;
     overflow: hidden;
     transition: all 0.35s ease;
@@ -862,7 +912,7 @@ nav.mobile-nav-bar a {
 
 .gift-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 12px 35px rgba(201, 168, 76, 0.18);
+    box-shadow: 0 12px 35px rgba(201, 168, 76, 0.22);
     border-color: #C9A84C;
 }
 
@@ -930,19 +980,296 @@ nav.mobile-nav-bar a {
     transform: translateX(-50%) translateY(0);
 }
 
-    white-space: nowrap;
-    transition: all 0.2s ease;
-}
-
-nav.mobile-nav-bar a:hover, nav.mobile-nav-bar a.active {
-    color: #1F3530;
-    background: #C9A84C;
-    font-weight: 600;
-}
-
         
 
 
+/* ===========================
+/* ==========================================================================
+   GOLD SCROLL PROGRESS & BACK TO TOP & AUDIO EQ
+   ========================================================================== */
+#gold-scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3.5px;
+    width: 0%;
+    background: linear-gradient(90deg, #C9A84C 0%, #F5E6AD 50%, #C9A84C 100%);
+    z-index: 100000;
+    box-shadow: 0 0 10px rgba(201, 168, 76, 0.7);
+    transition: width 0.1s ease-out;
+    pointer-events: none;
+}
+
+#back-to-top-btn {
+    position: fixed;
+    bottom: 4.75rem;
+    right: 1.25rem;
+    z-index: 44;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(31, 53, 48, 0.92);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1.5px solid #C9A84C;
+    color: #C9A84C;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(15px) scale(0.85);
+    transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+#back-to-top-btn.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+}
+
+#back-to-top-btn:hover {
+    background: #C9A84C;
+    color: #1F3530;
+    transform: translateY(-3px) scale(1.08);
+    box-shadow: 0 10px 30px rgba(201, 168, 76, 0.45);
+}
+
+#back-to-top-btn:active {
+    transform: scale(0.92);
+}
+
+/* Audio Equalizer animation bars */
+.audio-eq-wrapper {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 3px;
+    height: 18px;
+    width: 18px;
+}
+
+.eq-bar {
+    width: 3px;
+    background: #C9A84C;
+    border-radius: 2px;
+    animation: eq-bounce 1.2s ease-in-out infinite alternate;
+}
+
+.eq-bar:nth-child(1) { height: 40%; animation-delay: 0.1s; }
+.eq-bar:nth-child(2) { height: 80%; animation-delay: 0.3s; }
+.eq-bar:nth-child(3) { height: 60%; animation-delay: 0.5s; }
+
+@keyframes eq-bounce {
+    0% { height: 20%; }
+    50% { height: 100%; }
+    100% { height: 30%; }
+}
+
+/* Canvas falling petals overlay */
+#petals-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 38;
+}
+
+/* ==========================================================================
+   ULTRA LUXURY STYLES (GOLD FOIL, ARCH FRAMES, GLASS CARDS & DUST)
+   ========================================================================== */
+
+/* Luxury Title & Contrast Text Styling */
+.text-gold-metallic {
+    color: #1F3530;
+    background: none;
+    -webkit-background-clip: initial;
+    -webkit-text-fill-color: initial;
+    background-clip: initial;
+    text-fill-color: initial;
+    display: inline-block;
+    filter: drop-shadow(0 2px 4px rgba(31, 53, 48, 0.1));
+}
+
+.shimmer-gold {
+    animation: none;
+}
+
+@keyframes goldShimmer {
+    to { background-position: 200% center; }
+}
+
+/* Gold Arch Photo Frames (Classic Royal Curved Arch Frame) */
+.gold-arch-frame {
+    position: relative;
+    display: inline-block;
+    padding: 8px;
+    border-radius: 120px 120px 16px 16px;
+    background: linear-gradient(135deg, #C9A84C, #F5E6AD, #9A7B2C, #F5E6AD);
+    box-shadow: 0 15px 35px rgba(201, 168, 76, 0.25), 0 5px 15px rgba(0, 0, 0, 0.08);
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.gold-arch-frame:hover {
+    transform: translateY(-5px) scale(1.02);
+}
+
+.gold-arch-frame img {
+    border-radius: 112px 112px 12px 12px;
+    display: block;
+    object-fit: cover;
+}
+
+/* Luxury Glassmorphism Cards */
+.luxury-glass-card {
+    background: rgba(255, 253, 249, 0.82);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(201, 168, 76, 0.35);
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(31, 53, 48, 0.06), 0 0 15px rgba(201, 168, 76, 0.08);
+    transition: all 0.3s ease;
+}
+
+.luxury-glass-card:hover {
+    border-color: #C9A84C;
+    box-shadow: 0 15px 35px rgba(31, 53, 48, 0.1), 0 0 20px rgba(201, 168, 76, 0.18);
+}
+
+/* Song Title Toast / Pill Badge */
+#music-song-badge {
+    position: fixed;
+    bottom: 4.75rem;
+    right: 4.5rem;
+    z-index: 44;
+    background: rgba(31, 53, 48, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid #C9A84C;
+    color: #FDFBF7;
+    padding: 0.4rem 0.9rem;
+    border-radius: 9999px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(15px) scale(0.9);
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    pointer-events: none;
+}
+
+#music-song-badge.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0) scale(1);
+}
+
+/* Gold Dust Cursor Particles */
+.gold-dust-dot {
+    position: fixed;
+    pointer-events: none;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #F5E6AD 0%, #C9A84C 100%);
+    box-shadow: 0 0 8px #C9A84C;
+    z-index: 999999;
+    transform: translate(-50%, -50%);
+    animation: fadeGoldDust 0.8s ease-out forwards;
+}
+
+@keyframes fadeGoldDust {
+    0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    100% { opacity: 0; transform: translate(-50%, -50%) scale(0.2) translateY(-15px); }
+}
+
+/* Celebration Sparkles Burst */
+.sparkle-burst-dot {
+    position: fixed;
+    pointer-events: none;
+    z-index: 100000;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #F5E6AD;
+    box-shadow: 0 0 10px #C9A84C;
+    animation: sparkleBurstAnim 1s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+}
+
+@keyframes sparkleBurstAnim {
+    0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(0); }
+
+/* ==========================================================================
+   MOBILE-FIRST LUXURY TOUCH & RESPONSIVE DESIGN (SMARTPHONES OPTIMIZATION)
+   ========================================================================== */
+@media (max-width: 640px) {
+    /* Mobile Thumb Zone for Floating Controls */
+    #back-to-top-btn {
+        bottom: 4.8rem;
+        right: 0.85rem;
+        width: 42px;
+        height: 42px;
+    }
+
+    .music-floating-btn {
+        bottom: 1rem !important;
+        right: 0.85rem !important;
+        width: 44px !important;
+        height: 44px !important;
+    }
+
+    #music-song-badge {
+        bottom: 4.8rem;
+        right: 50%;
+        transform: translateX(50%) translateY(15px) scale(0.9);
+        white-space: nowrap;
+        font-size: 0.7rem;
+    }
+
+    #music-song-badge.show {
+        transform: translateX(50%) translateY(0) scale(1);
+    }
+
+    /* Mobile Frame Photo Arch Sizing */
+    .gold-arch-frame {
+        padding: 6px;
+        border-radius: 100px 100px 14px 14px;
+    }
+
+    .gold-arch-frame img {
+        width: 165px !important;
+        height: 225px !important;
+        border-radius: 94px 94px 10px 10px;
+    }
+
+    /* Mobile Container & Spacing */
+    .container-wedding {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+    }
+
+    /* Enhanced Mobile Touch Active Feedback */
+    button:active, .btn-gold:active, .btn-outline-gold:active, .btn-forest:active {
+        transform: scale(0.95) !important;
+        transition: transform 0.1s ease !important;
+    }
+
+    /* Luxury Glass Cards Mobile Padding */
+    .luxury-glass-card {
+        padding: 1.75rem 1.25rem !important;
+    }
+}
+}
 /* ===========================
    UTILITY CLASSES
    =========================== */

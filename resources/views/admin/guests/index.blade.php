@@ -9,7 +9,10 @@
 <button type="submit" class="btn-forest" style="font-size:0.8rem;padding:0.5rem 1rem;min-height:40px;">Search</button>
 @if($search)<a href="{{ route('admin.guests.index') }}" class="btn-outline-gold" style="font-size:0.8rem;padding:0.5rem 1rem;min-height:40px;">Clear</a>@endif
 </form>
+<div style="display:flex;gap:0.5rem;align-items:center;">
+<button type="button" onclick="openWaGeneratorModal()" style="font-size:0.8rem;padding:0.5rem 1rem;min-height:40px;background:#25D366;color:white;border:none;border-radius:4px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:0.4rem;">⚡ WA Link Generator</button>
 <a href="{{ route('admin.guests.create') }}" class="btn-gold" style="font-size:0.8rem;padding:0.5rem 1.25rem;min-height:40px;">+ Add Guest</a>
+</div>
 </div>
 
 <div style="background:white;box-shadow:0 1px 8px rgba(0,0,0,0.06);overflow:auto;">
@@ -41,14 +44,7 @@
 <td style="padding:0.75rem 1rem;">
 <div style="display:flex;gap:0.4rem;flex-wrap:wrap;">
 <button onclick="navigator.clipboard.writeText('{{ url('/?to=' . urlencode($guest->name)) }}');alert('Link copied for {{ addslashes($guest->name) }}!');" style="font-size:0.75rem;color:#C9A84C;background:none;border:1px solid #C9A84C;cursor:pointer;padding:0.25rem 0.5rem;border-radius:3px;">Copy Link</button>
-@if($guest->phone)
-@php
-$waMsg = urlencode("Kepada Yth. " . $guest->name . ",\n\nTanpa mengurangi rasa hormat, kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara pernikahan kami:\n\n" . url('/?to=' . urlencode($guest->name)));
-$waPhone = preg_replace('/[^0-9]/', '', $guest->phone);
-if (str_starts_with($waPhone, '0')) { $waPhone = '62' . substr($waPhone, 1); }
-@endphp
-<a href="https://wa.me/{{ $waPhone }}?text={{ $waMsg }}" target="_blank" style="font-size:0.75rem;color:#166534;background:#f0fdf4;border:1px solid #22c55e;text-decoration:none;padding:0.25rem 0.5rem;border-radius:3px;">WA Share</a>
-@endif
+<button onclick="openWaGeneratorModal('{{ addslashes($guest->name) }}', '{{ addslashes($guest->phone ?? '') }}')" style="font-size:0.75rem;color:#166534;background:#f0fdf4;border:1px solid #22c55e;cursor:pointer;padding:0.25rem 0.5rem;border-radius:3px;">WA Generator</button>
 <a href="{{ route('admin.guests.edit',$guest) }}" style="font-size:0.75rem;color:#2D4A3E;text-decoration:none;padding:0.25rem 0.5rem;border:1px solid #2D4A3E;border-radius:3px;">Edit</a>
 <form method="POST" action="{{ route('admin.guests.destroy',$guest) }}" onsubmit="return confirm('Delete this guest?')" style="display:inline;">
 @csrf @method('DELETE')

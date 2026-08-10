@@ -20,6 +20,7 @@
 <a href="{{ route('admin.guestbooks.index') }}" class="admin-nav-link {{ request()->routeIs('admin.guestbooks.*') ? 'active' : '' }}">&#128172; Guestbook</a>
 <a href="{{ route('admin.gallery.index') }}" class="admin-nav-link {{ request()->routeIs('admin.gallery.*') ? 'active' : '' }}">&#128247; Gallery</a>
 <a href="{{ route('admin.settings.index') }}" class="admin-nav-link {{ request()->routeIs('admin.settings.*') ? 'active' : '' }}">&#9881; Settings</a>
+<a href="javascript:void(0)" onclick="openWaGeneratorModal()" class="admin-nav-link" style="color:#25D366;font-weight:600;">⚡ WA Link Generator</a>
 <div style="border-top:1px solid rgba(255,255,255,0.08);margin:0.5rem 0;"></div>
 <a href="{{ route('invitation') }}" target="_blank" class="admin-nav-link">&#8599; View Site</a>
 <form method="POST" action="{{ route('admin.logout') }}" style="padding:0 0.25rem;">
@@ -43,5 +44,6 @@
 @yield('content')
 </div>
 </main>
+@include('admin.partials.wa_generator_modal')
 </body>
 </html>

@@ -29,6 +29,15 @@
     
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
+    <script>
+        window.weddingConfig = {
+            whatsappNumber: @json($settings['whatsapp_number'] ?? '628123456789'),
+            groomNickname: @json($settings['groom_nickname'] ?? 'Bowo'),
+            brideNickname: @json($settings['bride_nickname'] ?? 'Riska'),
+            weddingDate: @json($settings['wedding_date'] ?? '16 Agustus 2026')
+        };
+    </script>
+
     <style>
         [x-cloak] { display: none !important; }
     </style>
@@ -43,7 +52,7 @@
         <source src="{{ !empty($settings['music_file']) ? asset($settings['music_file']) : asset('music/wedding-song.mp3') }}" type="audio/mpeg">
     </audio>
 
-    <!-- Floating Mobile & Desktop Navigation Bar -->
+        <!-- Floating Mobile & Desktop Navigation Bar -->
     <nav class="mobile-nav-bar" x-show="isOpen" x-transition.opacity.duration.400ms x-cloak>
         <a href="#hero" :class="{ 'active': activeSection === 'hero' }">Home</a>
         <a href="#couple" :class="{ 'active': activeSection === 'couple' }">Couple</a>
@@ -59,9 +68,11 @@
             class="fixed bottom-6 right-4 sm:right-6 z-40 bg-white/90 backdrop-blur-md shadow-xl p-3.5 rounded-full text-gold border border-gold/40 hover:bg-white hover:scale-110 transition-all duration-300" 
             :class="{ 'animate-spin-slow': isPlaying }"
             aria-label="Toggle Music Player">
-        <svg x-show="isPlaying" class="w-6 h-6 text-amber-600" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M18 3a1 1 0 00-1.196-.98l-10 2A1 1 0 006 5v9.114A4.369 4.369 0 005 14c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2V7.236l8-1.6V11.114A4.369 4.369 0 0015 11c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2V3z"/>
-        </svg>
+        <div x-show="isPlaying" class="audio-eq-wrapper">
+            <span class="eq-bar"></span>
+            <span class="eq-bar"></span>
+            <span class="eq-bar"></span>
+        </div>
         <svg x-show="!isPlaying" class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" />
@@ -71,7 +82,11 @@
     @include('wedding.partials.loading')
     @include('wedding.partials.cover')
 
-    <main x-show="isOpen" x-transition.opacity.duration.800ms class="min-h-screen relative w-full" style="background-color:#FAF6F0;" x-cloak>
+    <main x-show="isOpen" 
+          x-transition:enter="transition ease-out duration-1000 transform"
+          x-transition:enter-start="opacity-0 scale-105"
+          x-transition:enter-end="opacity-100 scale-100"
+          class="min-h-screen relative w-full" style="background-color:#FAF6F0;" x-cloak>
         @include('wedding.sections.hero')
         @include('wedding.sections.quote')
         @include('wedding.sections.couple')
