@@ -103,7 +103,10 @@ function initCountdown() {
 
         if (difference <= 0) {
             if (el) el.style.display = 'none';
-            if (thankYouEl) thankYouEl.classList.remove('hidden');
+            if (thankYouEl) {
+                thankYouEl.style.display = 'block';
+                thankYouEl.classList.remove('hidden');
+            }
             return;
         }
 
@@ -221,7 +224,7 @@ function initCopyToClipboard() {
 }
 
 // Global Toast Notification Helper
-window.showToast = function (msg, duration = 3000) {
+window.showToast = function (msg, duration = 3500) {
     let container = document.getElementById('toast-notification');
     if (!container) {
         container = document.createElement('div');
@@ -230,12 +233,10 @@ window.showToast = function (msg, duration = 3000) {
     }
 
     const toast = document.createElement('div');
-    toast.className = 'toast-item';
+    toast.className = 'luxury-toast-item';
     toast.innerHTML = `
-        <svg class="w-5 h-5 text-emerald-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-        </svg>
-        <span>${msg}</span>
+        <div style="width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#C9A84C,#E8D08A);display:flex;align-items:center;justify-content:center;color:#132220;font-weight:700;font-size:11px;flex-shrink:0;box-shadow:0 2px 8px rgba(201,168,76,0.4);">✓</div>
+        <span style="font-family:'Poppins',sans-serif;font-size:0.825rem;font-weight:500;color:#FDFBF7;letter-spacing:0.02em;">${msg}</span>
     `;
 
     container.appendChild(toast);
@@ -335,16 +336,34 @@ window.submitGuestbook = async function (event, form) {
 
             const list = document.getElementById('guestbook-list');
             if (list && data.entry) {
+                // Remove empty state element if present
+                const emptyState = document.getElementById('guestbook-empty');
+                if (emptyState) {
+                    emptyState.remove();
+                }
+
+                const initial = data.entry.name ? data.entry.name.trim().charAt(0).toUpperCase() : '?';
+                const safeName = document.createElement('div');
+                safeName.textContent = data.entry.name;
+                const safeMsg = document.createElement('div');
+                safeMsg.textContent = data.entry.message;
+
                 const newCard = document.createElement('div');
-                newCard.className = 'glass-card rounded-xl p-5 mb-4 border border-gold/20 shadow-sm transition-all duration-500 transform animate-fade-in';
+                newCard.className = 'guestbook-item';
                 newCard.innerHTML = `
-                    <div class="flex items-center justify-between mb-2">
-                        <h4 class="font-semibold text-deep-green font-sans text-base">${data.entry.name}</h4>
-                        <span class="text-xs text-gray-400 font-sans">Baru saja</span>
+                    <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.5rem;">
+                        <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#2D4A3E,#C9A84C);display:flex;align-items:center;justify-content:center;font-weight:600;color:white;font-size:1rem;flex-shrink:0;">
+                            ${initial}
+                        </div>
+                        <div>
+                            <p style="font-weight:600;font-size:0.875rem;color:#2D4A3E;">${safeName.innerHTML}</p>
+                            <p style="font-size:0.7rem;color:#999;">Baru saja</p>
+                        </div>
                     </div>
-                    <p class="text-gray-700 text-sm font-sans leading-relaxed">${data.entry.message}</p>
+                    <p style="font-size:0.875rem;color:#555;line-height:1.6;padding-left:3rem;">${safeMsg.innerHTML}</p>
                 `;
                 list.prepend(newCard);
+                list.scrollTop = 0;
 
                 const countBadge = document.getElementById('guestbook-count');
                 if (countBadge) {

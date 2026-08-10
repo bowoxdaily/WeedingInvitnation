@@ -6,8 +6,22 @@
     <title>The Wedding of {{ $settings['groom_nickname'] ?? 'Bowo' }} &amp; {{ $settings['bride_nickname'] ?? 'Riska' }}</title>
     
     <meta name="title" content="The Wedding of {{ $settings['groom_nickname'] ?? 'Bowo' }} &amp; {{ $settings['bride_nickname'] ?? 'Riska' }}">
-    <meta name="description" content="You are invited to our wedding!">
+    <meta name="description" content="Kami mengundang Anda untuk menghadiri pernikahan {{ $settings['groom_nickname'] ?? 'Bowo' }} &amp; {{ $settings['bride_nickname'] ?? 'Riska' }} pada {{ $settings['wedding_date'] ?? '16 Agustus 2026' }}.">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <!-- Open Graph / WhatsApp Preview -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request()->fullUrl() }}">
+    <meta property="og:title" content="The Wedding of {{ $settings['groom_nickname'] ?? 'Bowo' }} &amp; {{ $settings['bride_nickname'] ?? 'Riska' }}">
+    <meta property="og:description" content="Kami mengundang Anda untuk menghadiri pernikahan {{ $settings['groom_nickname'] ?? 'Bowo' }} &amp; {{ $settings['bride_nickname'] ?? 'Riska' }} pada {{ $settings['wedding_date'] ?? '16 Agustus 2026' }}.">
+    <meta property="og:image" content="{{ asset($settings['hero_photo'] ?? '/images/placeholder-hero.jpg') }}">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="{{ request()->fullUrl() }}">
+    <meta name="twitter:title" content="The Wedding of {{ $settings['groom_nickname'] ?? 'Bowo' }} &amp; {{ $settings['bride_nickname'] ?? 'Riska' }}">
+    <meta name="twitter:description" content="Kami mengundang Anda untuk menghadiri pernikahan {{ $settings['groom_nickname'] ?? 'Bowo' }} &amp; {{ $settings['bride_nickname'] ?? 'Riska' }} pada {{ $settings['wedding_date'] ?? '16 Agustus 2026' }}.">
+    <meta name="twitter:image" content="{{ asset($settings['hero_photo'] ?? '/images/placeholder-hero.jpg') }}">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,7 +40,7 @@
     <div id="toast-notification"></div>
 
     <audio id="bgMusic" loop preload="auto">
-        <source src="{{ $settings['music_file'] ?? '/music/wedding-song.mp3' }}" type="audio/mpeg">
+        <source src="{{ !empty($settings['music_file']) ? asset($settings['music_file']) : asset('music/wedding-song.mp3') }}" type="audio/mpeg">
     </audio>
 
     <!-- Floating Mobile & Desktop Navigation Bar -->

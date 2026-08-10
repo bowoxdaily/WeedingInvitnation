@@ -1,5 +1,5 @@
 <section style="position:relative;background-color:#1F3530;padding:7rem 1.5rem;text-align:center;overflow:hidden;">
-<div style="position:absolute;inset:0;"><img src="{{ $settings['closing_photo'] ?? '/images/placeholder-hero.jpg' }}" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.15;"></div>
+<div style="position:absolute;inset:0;"><img src="{{ !empty($settings['closing_photo']) ? asset($settings['closing_photo']) : asset('images/placeholder-hero.jpg') }}" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.15;"></div>
 <div style="position:absolute;inset:0;background:rgba(31,53,48,0.85);"></div>
 <div style="position:relative;z-index:1;" data-aos="fade-up">
 <p style="font-size:0.65rem;letter-spacing:0.4em;text-transform:uppercase;color:rgba(201,168,76,0.7);margin-bottom:1.5rem;">Thank You</p>

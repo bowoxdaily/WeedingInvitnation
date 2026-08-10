@@ -20,7 +20,7 @@
 <div style="display:grid;grid-template-columns:1fr;gap:3rem;max-width:700px;margin:0 auto;" class="couple-grid">
 <div style="text-align:center;" data-aos="fade-right">
 <div style="position:relative;display:inline-block;margin-bottom:1.5rem;">
-<img src="{{ $settings['groom_photo'] ?? '/images/placeholder-groom.jpg' }}" alt="{{ $settings['groom_nickname'] ?? 'Bowo' }}" class="couple-photo">
+<img src="{{ !empty($settings['groom_photo']) ? asset($settings['groom_photo']) : asset('images/placeholder-groom.jpg') }}" alt="{{ $settings['groom_nickname'] ?? 'Bowo' }}" class="couple-photo">
 <div style="position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);background:#C9A84C;color:#1F3530;font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;padding:0.25rem 0.75rem;white-space:nowrap;">THE GROOM</div>
 </div>
 <h3 style="font-family:'Cormorant Garamond',Georgia,serif;font-size:2rem;color:#2D4A3E;margin-top:1.5rem;margin-bottom:0.5rem;">{{ $settings['groom_name'] ?? 'Bowo Prasetyo' }}</h3>
@@ -36,7 +36,7 @@
 </div>
 <div style="text-align:center;" data-aos="fade-left">
 <div style="position:relative;display:inline-block;margin-bottom:1.5rem;">
-<img src="{{ $settings['bride_photo'] ?? '/images/placeholder-bride.jpg' }}" alt="{{ $settings['bride_nickname'] ?? 'Riska' }}" class="couple-photo">
+<img src="{{ !empty($settings['bride_photo']) ? asset($settings['bride_photo']) : asset('images/placeholder-bride.jpg') }}" alt="{{ $settings['bride_nickname'] ?? 'Riska' }}" class="couple-photo">
 <div style="position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);background:#C9A84C;color:#1F3530;font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;padding:0.25rem 0.75rem;white-space:nowrap;">THE BRIDE</div>
 </div>
 <h3 style="font-family:'Cormorant Garamond',Georgia,serif;font-size:2rem;color:#2D4A3E;margin-top:1.5rem;margin-bottom:0.5rem;">{{ $settings['bride_name'] ?? 'Riska Anggraeni' }}</h3>

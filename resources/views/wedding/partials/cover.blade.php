@@ -1,5 +1,5 @@
 <div id="cover-page" x-show="!isOpen" x-transition.duration.800ms style="position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;background:#FAF6F0;overflow:hidden;min-height:100vh;">
-<div style="position:absolute;inset:0;"><img src="{{ $settings['hero_photo'] ?? '/images/placeholder-hero.jpg' }}" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.15;"></div>
+<div style="position:absolute;inset:0;"><img src="{{ !empty($settings['hero_photo']) ? asset($settings['hero_photo']) : asset('images/placeholder-hero.jpg') }}" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.15;"></div>
 <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(250,246,240,0.7),rgba(250,246,240,0.9));"></div>
 <div style="position:relative;z-index:1;text-align:center;padding:2rem 1.5rem;max-width:480px;margin:0 auto;width:100%;">
 <p style="color:#C9A84C;font-size:1.5rem;margin-bottom:1.5rem;">&#10022;</p>

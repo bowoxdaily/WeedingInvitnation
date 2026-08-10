@@ -13,7 +13,9 @@
 <p class="section-subtitle" data-aos="fade-up">Ucapan &amp; Doa</p>
 <h2 class="section-title" data-aos="fade-up" data-aos-delay="100">Guestbook</h2>
 <div class="section-divider" data-aos="fade-up" data-aos-delay="150"><span>&#10022;</span></div>
-<div style="max-width:500px;margin:0 auto 3rem;background:#FFFDF9;border:1px solid rgba(201,168,76,0.15);padding:2rem 1.5rem;border-radius:12px;box-shadow:0 4px 20px rgba(201,168,76,0.08);" data-aos="fade-up" data-aos-delay="200">
+
+<!-- Form Card -->
+<div style="max-width:600px;margin:0 auto 3rem;background:#FFFDF9;border:1px solid rgba(201,168,76,0.2);padding:2rem 1.5rem;border-radius:16px;box-shadow:0 8px 30px rgba(45,74,62,0.06);" data-aos="fade-up" data-aos-delay="200">
 <form onsubmit="submitGuestbook(event,this)">
 @csrf
 <div style="margin-bottom:1.25rem;">
@@ -27,9 +29,22 @@
 <button type="submit" class="btn-gold" style="width:100%;">Send Message</button>
 </form>
 </div>
-<div id="guestbook-list" style="max-width:600px;margin:0 auto;">
+
+<!-- Guestbook Header Info & Counter -->
+<div style="display:flex;align-items:center;justify-style:space-between;justify-content:space-between;max-width:600px;margin:0 auto 1rem;padding:0 0.25rem;" data-aos="fade-up" data-aos-delay="250">
+<span style="font-size:0.825rem;font-weight:600;color:#2D4A3E;text-transform:uppercase;letter-spacing:0.08em;display:inline-flex;align-items:center;gap:0.4rem;">
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+Daftar Ucapan
+</span>
+<span style="background:rgba(201,168,76,0.12);color:#C9A84C;border:1px solid rgba(201,168,76,0.3);font-size:0.75rem;font-weight:600;padding:0.25rem 0.75rem;border-radius:50px;display:inline-flex;align-items:center;gap:0.3rem;">
+<span id="guestbook-count">{{ count($guestbooks) }}</span> Pesan
+</span>
+</div>
+
+<!-- Scrollable Guestbook Container -->
+<div class="guestbook-scroll-container" id="guestbook-list" style="max-width:600px;margin:0 auto;" data-aos="fade-up" data-aos-delay="300">
 @forelse($guestbooks as $entry)
-<div class="guestbook-item" data-aos="fade-up">
+<div class="guestbook-item">
 <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.5rem;">
 <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#2D4A3E,#C9A84C);display:flex;align-items:center;justify-content:center;font-weight:600;color:white;font-size:1rem;flex-shrink:0;">
 {{ strtoupper(substr($entry->name,0,1)) }}
@@ -42,7 +57,9 @@
 <p style="font-size:0.875rem;color:#555;line-height:1.6;padding-left:3rem;">{{ $entry->message }}</p>
 </div>
 @empty
-<p style="text-align:center;color:#999;font-style:italic;padding:2rem;">Belum ada ucapan. Jadilah yang pertama!</p>
+<div id="guestbook-empty" style="text-align:center;color:#999;font-style:italic;padding:2.5rem 1rem;background:#FFFDF9;border:1px dashed rgba(201,168,76,0.3);border-radius:12px;">
+<p style="margin:0;">Belum ada ucapan. Jadilah yang pertama mengirimkan ucapan &amp; doa!</p>
+</div>
 @endforelse
 </div>
 </div>

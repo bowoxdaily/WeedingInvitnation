@@ -165,4 +165,45 @@ class WeddingInvitationTest extends TestCase
         $this->assertEquals('Bowo Prasetyo, S.T.', Setting::get('groom_name'));
         $this->assertEquals('Riska Anggraeni, S.Kom.', Setting::get('bride_name'));
     }
+
+    public function test_admin_can_update_love_story_settings(): void
+    {
+        $admin = Admin::create([
+            'name'     => 'Admin Test',
+            'email'    => 'admin@wedding.com',
+            'password' => bcrypt('password123'),
+        ]);
+
+        $this->actingAs($admin, 'admin');
+
+        $loveStoryData = [
+            [
+                'year'        => '2020',
+                'title'       => 'Awal Berkenalan',
+                'description' => 'Berkenalan di bangku kuliah.',
+            ],
+            [
+                'year'        => '2026',
+                'title'       => 'Menuju Pelaminan',
+                'description' => 'Mengikat janji suci bersama.',
+            ],
+        ];
+
+        $response = $this->post('/admin/settings', [
+            'love_story_present' => '1',
+            'love_story'         => $loveStoryData,
+        ]);
+
+        $response->assertRedirect('/admin/settings');
+        
+        $savedLoveStory = json_decode(Setting::get('love_story'), true);
+        $this->assertCount(2, $savedLoveStory);
+        $this->assertEquals('Awal Berkenalan', $savedLoveStory[0]['title']);
+
+        // Verify public view displays updated love story items
+        $publicResponse = $this->get('/');
+        $publicResponse->assertStatus(200);
+        $publicResponse->assertSee('Awal Berkenalan');
+        $publicResponse->assertSee('Menuju Pelaminan');
+    }
 }

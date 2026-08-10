@@ -1,5 +1,5 @@
 <section id="hero" style="position:relative;min-height:100svh;display:flex;align-items:center;justify-content:center;overflow:hidden;background-color:#FAF6F0;">
-<div style="position:absolute;inset:0;"><img src="{{ $settings['hero_photo'] ?? '/images/placeholder-hero.jpg' }}" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.12;"></div>
+<div style="position:absolute;inset:0;"><img src="{{ !empty($settings['hero_photo']) ? asset($settings['hero_photo']) : asset('images/placeholder-hero.jpg') }}" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.12;"></div>
 <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(250,246,240,0.6),rgba(250,246,240,0.8) 60%,rgba(250,246,240,0.95));"></div>
 
 <!-- Floating Particles -->
