@@ -1,0 +1,164 @@
+﻿import './bootstrap';
+import Alpine from 'alpinejs';
+window.Alpine = Alpine;
+Alpine.start();
+
+document.addEventListener('DOMContentLoaded', function () {
+    initAOS();
+    initCountdown();
+    initGallery();
+    initMusicPlayer();
+    initCopyToClipboard();
+    initLoadingScreen();
+});
+
+function initLoadingScreen() {
+    const loading = document.getElementById('loading-screen');
+    if (!loading) return;
+    setTimeout(() => loading.classList.add('hidden-loading'), 1800);
+}
+
+function initAOS() {
+    document.head.insertAdjacentHTML('beforeend', '<style>.aos-animate{opacity:1!important;transform:none!important;}</style>');
+    const els = document.querySelectorAll('[data-aos]');
+    if (!els.length) return;
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            const el = entry.target;
+            setTimeout(() => el.classList.add('aos-animate'), parseInt(el.dataset.aosDelay || 0));
+            observer.unobserve(el);
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    els.forEach(el => {
+        el.classList.add('aos-init');
+        const dur = el.dataset.aosDuration || '700';
+        el.style.transition = 'opacity ' + dur + 'ms ease, transform ' + dur + 'ms ease';
+        el.style.opacity = '0';
+        const t = el.dataset.aos;
+        if (t === 'fade-up') el.style.transform = 'translateY(30px)';
+        else if (t === 'fade-down') el.style.transform = 'translateY(-30px)';
+        else if (t === 'fade-left') el.style.transform = 'translateX(30px)';
+        else if (t === 'fade-right') el.style.transform = 'translateX(-30px)';
+        else if (t === 'zoom-in') el.style.transform = 'scale(0.95)';
+        observer.observe(el);
+    });
+}
+
+function initCountdown() {
+    const el = document.getElementById('countdown');
+    if (!el) return;
+    const targetStr = el.dataset.targetDate || '2026-08-16T08:00:00';
+    const wDate = new Date(targetStr);
+    function upd() {
+        const diff = wDate - new Date();
+        if (diff <= 0) {
+            const ty = document.getElementById('countdown-thankyou');
+            if (ty) { el.style.display='none'; ty.style.display='block'; }
+            return;
+        }
+        const pad = n => String(n).padStart(2,'0');
+        const days=document.getElementById('cd-days');
+        const hours=document.getElementById('cd-hours');
+        const mins=document.getElementById('cd-minutes');
+        const secs=document.getElementById('cd-seconds');
+        if(days) days.textContent=pad(Math.floor(diff/(1000*60*60*24)));
+        if(hours) hours.textContent=pad(Math.floor((diff%(1000*60*60*24))/(1000*60*60)));
+        if(mins) mins.textContent=pad(Math.floor((diff%(1000*60*60))/(1000*60)));
+        if(secs) secs.textContent=pad(Math.floor((diff%(1000*60))/1000));
+    }
+    upd(); setInterval(upd, 1000);
+}
+function initGallery() {
+    const lb=document.getElementById('lightbox');
+    const lbImg=document.getElementById('lightbox-img');
+    const items=document.querySelectorAll('.gallery-item[data-src]');
+    if(!lb||!items.length) return;
+    let cur=0;
+    const imgs=Array.from(items).map(el=>el.dataset.src);
+    const open=i=>{cur=i;lbImg.src=imgs[i];lb.classList.add('active');document.body.style.overflow='hidden';};
+    const close=()=>{lb.classList.remove('active');document.body.style.overflow='';};
+    items.forEach((item,i)=>item.addEventListener('click',()=>open(i)));
+    const lbClose=document.getElementById('lightbox-close');
+    const lbPrev=document.getElementById('lightbox-prev');
+    const lbNext=document.getElementById('lightbox-next');
+    if(lbClose) lbClose.addEventListener('click',close);
+    if(lbPrev) lbPrev.addEventListener('click',()=>{cur=(cur-1+imgs.length)%imgs.length;lbImg.src=imgs[cur];});
+    if(lbNext) lbNext.addEventListener('click',()=>{cur=(cur+1)%imgs.length;lbImg.src=imgs[cur];});
+    lb.addEventListener('click',e=>{if(e.target===lb)close();});
+    document.addEventListener('keydown',e=>{
+        if(!lb.classList.contains('active'))return;
+        if(e.key==='Escape')close();
+        if(e.key==='ArrowLeft'&&lbPrev)lbPrev.click();
+        if(e.key==='ArrowRight'&&lbNext)lbNext.click();
+    });
+    let tx=0;
+    lb.addEventListener('touchstart',e=>{tx=e.changedTouches[0].screenX;});
+    lb.addEventListener('touchend',e=>{
+        const diff=tx-e.changedTouches[0].screenX;
+        if(Math.abs(diff)>50){if(diff>0&&lbNext)lbNext.click();else if(lbPrev)lbPrev.click();}
+    });
+}
+
+function initMusicPlayer() {
+    const audio=document.getElementById('bg-music');
+    const btn=document.getElementById('music-btn');
+    const icon=document.getElementById('music-icon');
+    if(!audio||!btn) return;
+    let playing=false;
+    const svgPlay='<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#1F3530"><path d="M8 5v14l11-7z"/></svg>';
+    const svgPause='<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#1F3530"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>';
+    const upd=()=>{if(icon)icon.innerHTML=playing?svgPause:svgPlay;};
+    window.startMusicAfterOpen=()=>{audio.volume=0.4;audio.loop=true;audio.play().then(()=>{playing=true;upd();}).catch(()=>{});};
+    btn.addEventListener('click',()=>{
+        if(playing){audio.pause();playing=false;}else{audio.play().then(()=>{playing=true;}).catch(()=>{}); }
+        upd();
+    });
+    upd();
+}
+
+function initCopyToClipboard() {
+    document.querySelectorAll('[data-copy]').forEach(btn=>{
+        btn.addEventListener('click',function(){
+            const text=this.dataset.copy;
+            if(navigator.clipboard){navigator.clipboard.writeText(text).then(()=>window.showToast('Account number copied!'));}
+            else{const el=document.createElement('textarea');el.value=text;document.body.appendChild(el);el.select();document.execCommand('copy');document.body.removeChild(el);window.showToast('Account number copied!');}
+        });
+    });
+}
+
+window.showToast=function(msg,dur){dur=dur||2500;var t=document.getElementById('toast-notification');if(!t){t=document.createElement('div');t.id='toast-notification';document.body.appendChild(t);}t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},dur);};
+
+window.openInvitation=function(){var cover=document.getElementById('cover-page');if(cover)cover.classList.add('hidden-cover');if(window.startMusicAfterOpen)window.startMusicAfterOpen();document.body.style.overflow='';};
+
+window.addToGoogleCalendar=function(){window.open('https://calendar.google.com/calendar/render?action=TEMPLATE&text=Wedding+Bowo+%26+Riska&dates=20260816T080000/20260816T220000&details=Wedding+Invitation+of+Bowo+%26+Riska&sf=true&output=xml','_blank');};
+
+window.submitRsvp=async function(event,form){
+    event.preventDefault();
+    const btn=form.querySelector('[type="submit"]');
+    const orig=btn.textContent;
+    btn.disabled=true;btn.textContent='Sending...';
+    try{
+        const res=await fetch('/rsvp',{method:'POST',headers:{'X-CSRF-TOKEN':document.querySelector('meta[name="csrf-token"]').content,'Accept':'application/json'},body:new FormData(form)});
+        const data=await res.json();
+        if(data.success){window.showToast('Thank you! RSVP received.');form.reset();}
+        else window.showToast('Error: '+(data.message||'Please try again.'));
+    }catch{window.showToast('An error occurred.');}
+    btn.disabled=false;btn.textContent=orig;
+};
+
+window.submitGuestbook=async function(event,form){
+    event.preventDefault();
+    const btn=form.querySelector('[type="submit"]');
+    const orig=btn.textContent;
+    btn.disabled=true;btn.textContent='Sending...';
+    try{
+        const res=await fetch('/guestbook',{method:'POST',headers:{'X-CSRF-TOKEN':document.querySelector('meta[name="csrf-token"]').content,'Accept':'application/json'},body:new FormData(form)});
+        const data=await res.json();
+        if(data.success){
+            window.showToast('Message sent!');form.reset();
+            if(data.entry){var list=document.getElementById('guestbook-list');if(list){var div=document.createElement('div');div.className='guestbook-item';div.innerHTML='<p style="font-weight:600;font-size:.875rem;color:#2D4A3E">'+data.entry.name+'</p><p style="font-size:.875rem;margin-top:.25rem;color:#555">'+data.entry.message+'</p><p style="font-size:.75rem;color:#999">Just now</p>';list.prepend(div);}}
+        }else window.showToast('Error: '+(data.message||'Please try again.'));
+    }catch{window.showToast('An error occurred.');}
+    btn.disabled=false;btn.textContent=orig;
+};
