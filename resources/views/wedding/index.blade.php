@@ -65,7 +65,7 @@
 
     <!-- Floating Audio Toggle Button -->
     <button @click="toggleMusic()" x-show="isOpen" x-transition.scale.duration.300ms x-cloak
-            class="fixed bottom-6 right-4 sm:right-6 z-40 bg-white/90 backdrop-blur-md shadow-xl p-3.5 rounded-full text-gold border border-gold/40 hover:bg-white hover:scale-110 transition-all duration-300" 
+            class="music-floating-btn fixed bottom-6 right-4 sm:right-6 z-40 bg-white/90 backdrop-blur-md shadow-xl p-3.5 rounded-full text-gold border border-gold/40 hover:bg-white hover:scale-110 transition-all duration-300" 
             :class="{ 'animate-spin-slow': isPlaying }"
             aria-label="Toggle Music Player">
         <div x-show="isPlaying" class="audio-eq-wrapper">

@@ -12,7 +12,7 @@
 <h1 style="font-family:'Cormorant Garamond',Georgia,serif;font-size:2rem;color:white;font-weight:500;">Admin Panel</h1>
 <p style="font-size:0.75rem;letter-spacing:0.2em;color:rgba(201,168,76,0.8);">WEDDING BOWO &amp; RISKA</p>
 </div>
-<div style="background:white;padding:2.5rem 2rem;box-shadow:0 20px 60px rgba(0,0,0,0.3);">
+<div class="p-6 sm:p-10" style="background:white;box-shadow:0 20px 60px rgba(0,0,0,0.3);">
 @if($errors->any())
 <div style="background:#fee;border-left:3px solid #e74c3c;padding:0.75rem 1rem;margin-bottom:1.5rem;font-size:0.875rem;color:#c0392b;">
 {{ $errors->first() }}

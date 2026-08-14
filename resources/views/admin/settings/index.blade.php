@@ -2,12 +2,20 @@
 @section('title','Settings')
 @section('page-title','Wedding Settings')
 @section('content')
+@if($errors->any())
+<div style="background:#fef2f2;border-left:3px solid #ef4444;padding:0.75rem 1rem;margin-bottom:1.5rem;font-size:0.875rem;color:#991b1b;">
+    <strong>Upload gagal.</strong>
+    <ul style="margin:0.35rem 0 0 1rem;list-style:disc;">
+        @foreach($errors->all() as $error)<li>{{ $error }}</li>@endforeach
+    </ul>
+</div>
+@endif
 <form method="POST" action="{{ route('admin.settings.update') }}" enctype="multipart/form-data">
 @csrf
 
 <div style="background:white;padding:1.5rem;margin-bottom:1.5rem;box-shadow:0 1px 8px rgba(0,0,0,0.06);">
 <h3 style="font-size:1rem;font-weight:600;color:#2D4A3E;margin-bottom:1.5rem;border-bottom:1px solid #e5e5e5;padding-bottom:0.75rem;">Couple Information</h3>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 <div>
 <h4 style="font-size:0.8rem;color:#C9A84C;margin-bottom:1rem;">GROOM</h4>
 <div style="margin-bottom:0.75rem;"><label class="form-label">Full Name</label><input type="text" name="groom_name" value="{{ $settings['groom_name'] ?? '' }}" class="form-input"></div>
@@ -23,7 +31,8 @@
             <span style="font-size:0.75rem;color:#666;">Foto saat ini</span>
         </div>
     @endif
-    <input type="file" name="groom_photo_file" accept="image/*" class="form-input" style="padding:0.4rem;">
+    <input type="file" name="groom_photo_file" accept="image/jpeg,image/png,image/webp" class="form-input" style="padding:0.4rem;">
+    <small style="display:block;color:#888;margin-top:0.25rem;">Pilih foto baru untuk mengganti foto saat ini (maks. 5MB).</small>
     <input type="hidden" name="groom_photo" value="{{ $settings['groom_photo'] ?? '' }}">
 </div>
 </div>
@@ -42,7 +51,8 @@
             <span style="font-size:0.75rem;color:#666;">Foto saat ini</span>
         </div>
     @endif
-    <input type="file" name="bride_photo_file" accept="image/*" class="form-input" style="padding:0.4rem;">
+    <input type="file" name="bride_photo_file" accept="image/jpeg,image/png,image/webp" class="form-input" style="padding:0.4rem;">
+    <small style="display:block;color:#888;margin-top:0.25rem;">Pilih foto baru untuk mengganti foto saat ini (maks. 5MB).</small>
     <input type="hidden" name="bride_photo" value="{{ $settings['bride_photo'] ?? '' }}">
 </div>
 </div>
@@ -56,7 +66,7 @@
 
 <div style="background:white;padding:1.5rem;margin-bottom:1.5rem;box-shadow:0 1px 8px rgba(0,0,0,0.06);">
 <h3 style="font-size:1rem;font-weight:600;color:#2D4A3E;margin-bottom:1.5rem;border-bottom:1px solid #e5e5e5;padding-bottom:0.75rem;">Event Information</h3>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 <div>
 <h4 style="font-size:0.8rem;color:#C9A84C;margin-bottom:1rem;">AKAD NIKAH</h4>
 <div style="margin-bottom:0.75rem;"><label class="form-label">Time</label><input type="text" name="akad_time" value="{{ $settings['akad_time'] ?? '' }}" class="form-input" placeholder="08.00 - 10.00 WIB"></div>
@@ -76,7 +86,7 @@
 <label class="form-label">Google Maps Embed URL</label>
 <input type="text" name="maps_embed_url" value="{{ $settings['maps_embed_url'] ?? '' }}" class="form-input" placeholder="https://www.google.com/maps/embed?...">
 </div>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:0.75rem;">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
 <div><label class="form-label">Wedding Date (ID)</label><input type="text" name="wedding_date" value="{{ $settings['wedding_date'] ?? '' }}" class="form-input" placeholder="16 Agustus 2026"></div>
 <div><label class="form-label">Wedding Date (EN)</label><input type="text" name="wedding_date_en" value="{{ $settings['wedding_date_en'] ?? '' }}" class="form-input" placeholder="16 August 2026"></div>
 </div>
@@ -84,7 +94,7 @@
 
 <div style="background:white;padding:1.5rem;margin-bottom:1.5rem;box-shadow:0 1px 8px rgba(0,0,0,0.06);">
 <h3 style="font-size:1rem;font-weight:600;color:#2D4A3E;margin-bottom:1.5rem;border-bottom:1px solid #e5e5e5;padding-bottom:0.75rem;">Wedding Gift &amp; Bank Accounts</h3>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 <div>
 <h4 style="font-size:0.8rem;color:#C9A84C;margin-bottom:1rem;">BANK ACCOUNT 1</h4>
 <div style="margin-bottom:0.75rem;"><label class="form-label">Bank</label><input type="text" name="bank1_name" value="{{ $settings['bank1_name'] ?? '' }}" class="form-input" placeholder="BCA"></div>
@@ -122,7 +132,7 @@
 <h3 style="font-size:1rem;font-weight:600;color:#2D4A3E;margin-bottom:1.5rem;border-bottom:1px solid #e5e5e5;padding-bottom:0.75rem;">Other Settings</h3>
 <div style="margin-bottom:0.75rem;"><label class="form-label">Wedding Quote</label><textarea name="wedding_quote" class="form-input" rows="2" style="resize:vertical;min-height:auto;">{{ $settings['wedding_quote'] ?? '' }}</textarea></div>
 <div style="margin-bottom:0.75rem;"><label class="form-label">Quote Source</label><input type="text" name="wedding_quote_source" value="{{ $settings['wedding_quote_source'] ?? '' }}" class="form-input"></div>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:1rem;">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
 <div>
     <label class="form-label">Hero Photo (Upload Latar Hero/Cover)</label>
     @if(!empty($settings['hero_photo']))
@@ -148,7 +158,7 @@
 </div>
 </div>
 
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:1.5rem;">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
 <div>
     <label class="form-label">Musik Pernikahan (Upload MP3 / Audio)</label>
     @if(!empty($settings['music_file']))
@@ -189,7 +199,7 @@
 <div id="love-story-container" style="display:flex;flex-direction:column;gap:1rem;">
     @forelse($loveStoryItems as $index => $story)
         <div class="story-row" style="background:#FAF9F6;border:1px solid #E5E5E0;border-radius:6px;padding:1rem;position:relative;">
-            <div style="display:grid;grid-template-columns:120px 1fr;gap:1rem;margin-bottom:0.75rem;padding-right:2rem;">
+            <div class="grid grid-cols-1 sm:grid-cols-[120px_1fr] gap-3 mb-3 pr-8">
                 <div>
                     <label class="form-label" style="font-size:0.75rem;">Tahun</label>
                     <input type="text" name="love_story[{{ $index }}][year]" value="{{ $story['year'] ?? '' }}" class="form-input" placeholder="2021">
@@ -235,7 +245,7 @@ document.addEventListener('DOMContentLoaded', function() {
             row.className = 'story-row';
             row.style.cssText = 'background:#FAF9F6;border:1px solid #E5E5E0;border-radius:6px;padding:1rem;position:relative;';
             row.innerHTML = `
-                <div style="display:grid;grid-template-columns:120px 1fr;gap:1rem;margin-bottom:0.75rem;padding-right:2rem;">
+                <div class="grid grid-cols-1 sm:grid-cols-[120px_1fr] gap-3 mb-3 pr-8">
                     <div>
                         <label class="form-label" style="font-size:0.75rem;">Tahun</label>
                         <input type="text" name="love_story[${storyIndex}][year]" class="form-input" placeholder="2021">

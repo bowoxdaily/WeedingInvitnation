@@ -85,21 +85,34 @@ class SettingController extends Controller
 
         // Upload and save new files
         foreach ($fileFields as $fileKey => $settingKey) {
-            if ($request->hasFile($fileKey)) {
+            if ($request->hasFile($fileKey) && $request->file($fileKey)->isValid()) {
+                $oldValue = Setting::get($settingKey);
                 $path = $request->file($fileKey)->store('photos', 'public');
                 Setting::set($settingKey, '/storage/' . $path);
+                $this->deleteStoredFile($oldValue);
             }
         }
 
-        if ($request->hasFile('music_file_upload')) {
+        if ($request->hasFile('music_file_upload') && $request->file('music_file_upload')->isValid()) {
+            $oldMusic = Setting::get('music_file');
             $path = $request->file('music_file_upload')->store('music', 'public');
             Setting::set('music_file', '/storage/' . $path);
+            $this->deleteStoredFile($oldMusic);
         }
 
         // Clear all setting cache
         Cache::flush();
 
         return redirect()->route('admin.settings.index')->with('success', 'Settings & files uploaded successfully.');
+    }
+
+    private function deleteStoredFile(?string $url): void
+    {
+        if (!$url || !str_starts_with($url, '/storage/')) {
+            return;
+        }
+
+        Storage::disk('public')->delete(substr($url, strlen('/storage/')));
     }
 }
 

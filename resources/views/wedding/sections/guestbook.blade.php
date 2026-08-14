@@ -54,7 +54,7 @@ Daftar Ucapan
 <p style="font-size:0.7rem;color:#999;">{{ $entry->created_at->diffForHumans() }}</p>
 </div>
 </div>
-<p style="font-size:0.875rem;color:#555;line-height:1.6;padding-left:3rem;">{{ $entry->message }}</p>
+<p style="font-size:0.875rem;color:#555;line-height:1.6;padding-left:clamp(1rem,6vw,3rem);">{{ $entry->message }}</p>
 </div>
 @empty
 <div id="guestbook-empty" style="text-align:center;color:#999;font-style:italic;padding:2.5rem 1rem;background:#FFFDF9;border:1px dashed rgba(201,168,76,0.3);border-radius:12px;">

@@ -22,7 +22,7 @@ The greatest gift is your presence. But if you wish to send a gift:
 <p style="font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:#C9A84C;">Bank Transfer</p>
 <span style="background:#E8EFE7;color:#2D4A3E;font-size:0.75rem;font-weight:600;padding:0.25rem 0.75rem;">{{ $settings['bank1_name'] ?? 'BCA' }}</span>
 </div>
-<p style="font-family:'Cormorant Garamond',Georgia,serif;font-size:2rem;font-weight:600;color:#2D4A3E;letter-spacing:0.05em;margin-bottom:0.25rem;">{{ $settings['bank1_account_number'] }}</p>
+<p style="font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(1.25rem,5.5vw,1.85rem);font-weight:600;color:#2D4A3E;letter-spacing:0.05em;margin-bottom:0.25rem;">{{ $settings['bank1_account_number'] }}</p>
 <p style="font-size:0.8rem;color:#888;margin-bottom:1.25rem;">a.n. {{ $settings['bank1_account_name'] ?? '' }}</p>
 <button class="btn-forest" style="width:100%;font-size:0.75rem;padding:0.75rem;" data-copy="{{ $settings['bank1_account_number'] }}">Copy Account Number</button>
 </div>
@@ -33,7 +33,7 @@ The greatest gift is your presence. But if you wish to send a gift:
 <p style="font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:#C9A84C;">Bank Transfer</p>
 <span style="background:#E8EFE7;color:#2D4A3E;font-size:0.75rem;font-weight:600;padding:0.25rem 0.75rem;">{{ $settings['bank2_name'] ?? 'Mandiri' }}</span>
 </div>
-<p style="font-family:'Cormorant Garamond',Georgia,serif;font-size:2rem;font-weight:600;color:#2D4A3E;letter-spacing:0.05em;margin-bottom:0.25rem;">{{ $settings['bank2_account_number'] }}</p>
+<p style="font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(1.25rem,5.5vw,1.85rem);font-weight:600;color:#2D4A3E;letter-spacing:0.05em;margin-bottom:0.25rem;">{{ $settings['bank2_account_number'] }}</p>
 <p style="font-size:0.8rem;color:#888;margin-bottom:1.25rem;">a.n. {{ $settings['bank2_account_name'] ?? '' }}</p>
 <button class="btn-forest" style="width:100%;font-size:0.75rem;padding:0.75rem;" data-copy="{{ $settings['bank2_account_number'] }}">Copy Account Number</button>
 </div>

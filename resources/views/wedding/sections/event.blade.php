@@ -14,7 +14,7 @@
 <h2 class="section-title" data-aos="fade-up" data-aos-delay="100">Wedding Event</h2>
 <div class="section-divider" data-aos="fade-up" data-aos-delay="150"><span>&#10022;</span></div>
 <div style="display:grid;grid-template-columns:1fr;gap:2rem;max-width:700px;margin:0 auto;" class="event-grid">
-<div class="luxury-glass-card" style="padding:2.5rem;text-align:center;" data-aos="fade-up" data-aos-delay="200">
+<div class="luxury-glass-card p-6 sm:p-10" style="text-align:center;" data-aos="fade-up" data-aos-delay="200">
 <div style="width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#C9A84C,#E8D08A);display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;font-size:1.5rem;box-shadow:0 4px 15px rgba(201,168,76,0.3);">💍</div>
 <p style="font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:#C9A84C;margin-bottom:0.75rem;font-weight:600;">Akad Nikah</p>
 <h3 style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.75rem;color:#2D4A3E;margin-bottom:1.5rem;">Minggu, {{ $settings['wedding_date'] ?? '16 Agustus 2026' }}</h3>
@@ -32,7 +32,7 @@
 </button>
 </div>
 </div>
-<div class="luxury-glass-card" style="padding:2.5rem;text-align:center;" data-aos="fade-up" data-aos-delay="300">
+<div class="luxury-glass-card p-6 sm:p-10" style="text-align:center;" data-aos="fade-up" data-aos-delay="300">
 <div style="width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#C9A84C,#E8D08A);display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;font-size:1.5rem;box-shadow:0 4px 15px rgba(201,168,76,0.3);">🥂</div>
 <p style="font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:#C9A84C;margin-bottom:0.75rem;font-weight:600;">Resepsi Pernikahan</p>
 <h3 style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.75rem;color:#2D4A3E;margin-bottom:1.5rem;">Minggu, {{ $settings['wedding_date'] ?? '16 Agustus 2026' }}</h3>

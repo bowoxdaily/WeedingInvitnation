@@ -15,7 +15,7 @@
         </div>
 
         <!-- Body -->
-        <div style="padding:1.25rem;display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" style="padding:1.25rem;">
             <!-- Left Controls -->
             <div style="display:flex;flex-direction:column;gap:0.75rem;">
                 <div>
@@ -50,7 +50,7 @@
         </div>
 
         <!-- Footer Actions -->
-        <div style="background:#F9F9F7;border-top:1px solid #E5E5E0;padding:0.85rem 1.25rem;display:flex;align-items:center;justify-content:space-between;gap:0.5rem;">
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2" style="background:#F9F9F7;border-top:1px solid #E5E5E0;padding:0.85rem 1.25rem;">
             <button type="button" onclick="copyWaOnlyLink()" style="background:white;border:1px solid #C9A84C;color:#C9A84C;padding:0.5rem 0.85rem;border-radius:6px;font-size:0.78rem;font-weight:600;cursor:pointer;">📋 Copy Link</button>
             <button type="button" onclick="copyWaFullMessage()" style="background:#2D4A3E;color:white;border:none;padding:0.5rem 0.85rem;border-radius:6px;font-size:0.78rem;font-weight:600;cursor:pointer;">📝 Copy Pesan WA</button>
             <button type="button" onclick="sendWaDirectly()" style="background:#25D366;color:white;border:none;padding:0.5rem 1rem;border-radius:6px;font-size:0.78rem;font-weight:600;cursor:pointer;">💬 Kirim WA</button>

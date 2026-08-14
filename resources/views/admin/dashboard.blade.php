@@ -3,7 +3,7 @@
 @section('page-title','Dashboard')
 
 @section('content')
-<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-bottom:2rem;">
+<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mb-8">
 <div class="stat-card">
 <p style="font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:#888;margin-bottom:0.5rem;">Total Guests</p>
 <p style="font-family:'Cormorant Garamond',Georgia,serif;font-size:2.5rem;font-weight:600;color:#2D4A3E;">{{ $totalGuests }}</p>

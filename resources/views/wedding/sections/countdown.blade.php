@@ -7,15 +7,15 @@
 <div class="countdown-box" style="background:rgba(255,255,255,0.05);border:1px solid rgba(201,168,76,0.3);padding:1.5rem 1rem;">
 <span id="cd-days" class="countdown-number" style="color:white;">00</span><span class="countdown-label">Days</span>
 </div>
-<div style="display:flex;align-items:center;font-family:'Cormorant Garamond',serif;font-size:3rem;color:#C9A84C;padding-bottom:1.5rem;">:</div>
+<div class="hidden sm:flex" style="align-items:center;font-family:'Cormorant Garamond',serif;font-size:3rem;color:#C9A84C;padding-bottom:1.5rem;">:</div>
 <div class="countdown-box" style="background:rgba(255,255,255,0.05);border:1px solid rgba(201,168,76,0.3);padding:1.5rem 1rem;">
 <span id="cd-hours" class="countdown-number" style="color:white;">00</span><span class="countdown-label">Hours</span>
 </div>
-<div style="display:flex;align-items:center;font-family:'Cormorant Garamond',serif;font-size:3rem;color:#C9A84C;padding-bottom:1.5rem;">:</div>
+<div class="hidden sm:flex" style="align-items:center;font-family:'Cormorant Garamond',serif;font-size:3rem;color:#C9A84C;padding-bottom:1.5rem;">:</div>
 <div class="countdown-box" style="background:rgba(255,255,255,0.05);border:1px solid rgba(201,168,76,0.3);padding:1.5rem 1rem;">
 <span id="cd-minutes" class="countdown-number" style="color:white;">00</span><span class="countdown-label">Minutes</span>
 </div>
-<div style="display:flex;align-items:center;font-family:'Cormorant Garamond',serif;font-size:3rem;color:#C9A84C;padding-bottom:1.5rem;">:</div>
+<div class="hidden sm:flex" style="align-items:center;font-family:'Cormorant Garamond',serif;font-size:3rem;color:#C9A84C;padding-bottom:1.5rem;">:</div>
 <div class="countdown-box" style="background:rgba(255,255,255,0.05);border:1px solid rgba(201,168,76,0.3);padding:1.5rem 1rem;">
 <span id="cd-seconds" class="countdown-number" style="color:white;">00</span><span class="countdown-label">Seconds</span>
 </div>

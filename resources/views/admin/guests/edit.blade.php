@@ -16,7 +16,7 @@
 </div>
 <div style="margin-bottom:1rem;">
 <label class="form-label">Invitation Code</label>
-<div style="display:flex;gap:0.5rem;align-items:center;">
+<div class="flex flex-col sm:flex-row gap-2">
 <input type="text" value="{{ $guest->invitation_code }}" class="form-input" readonly style="background:#f5f5f5;color:#666;">
 <button type="button" onclick="navigator.clipboard.writeText('{{ url('/') }}?to={{ urlencode($guest->name) }}')" style="padding:0.875rem;background:#2D4A3E;color:white;border:none;cursor:pointer;white-space:nowrap;min-height:48px;">Copy Link</button>
 </div>

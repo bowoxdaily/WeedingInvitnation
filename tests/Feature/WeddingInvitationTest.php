@@ -8,6 +8,8 @@ use App\Models\Guestbook;
 use App\Models\Rsvp;
 use App\Models\Setting;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class WeddingInvitationTest extends TestCase
@@ -164,6 +166,33 @@ class WeddingInvitationTest extends TestCase
         $response->assertRedirect('/admin/settings');
         $this->assertEquals('Bowo Prasetyo, S.T.', Setting::get('groom_name'));
         $this->assertEquals('Riska Anggraeni, S.Kom.', Setting::get('bride_name'));
+    }
+
+    public function test_admin_can_replace_groom_and_bride_photos(): void
+    {
+        $admin = Admin::create([
+            'name'     => 'Admin Test',
+            'email'    => 'admin@wedding.com',
+            'password' => bcrypt('password123'),
+        ]);
+
+        Storage::fake('public');
+        Setting::set('groom_photo', '/storage/photos/old-groom.jpg');
+        Setting::set('bride_photo', '/storage/photos/old-bride.jpg');
+
+        $this->actingAs($admin, 'admin');
+        $response = $this->post('/admin/settings', [
+            'groom_photo_file' => UploadedFile::fake()->image('new-groom.jpg'),
+            'bride_photo_file' => UploadedFile::fake()->image('new-bride.jpg'),
+        ]);
+
+        $response->assertRedirect('/admin/settings');
+        $this->assertStringStartsWith('/storage/photos/', Setting::get('groom_photo'));
+        $this->assertStringStartsWith('/storage/photos/', Setting::get('bride_photo'));
+        Storage::disk('public')->assertMissing('photos/old-groom.jpg');
+        Storage::disk('public')->assertMissing('photos/old-bride.jpg');
+        Storage::disk('public')->assertExists(str_replace('/storage/', '', Setting::get('groom_photo')));
+        Storage::disk('public')->assertExists(str_replace('/storage/', '', Setting::get('bride_photo')));
     }
 
     public function test_admin_can_update_love_story_settings(): void

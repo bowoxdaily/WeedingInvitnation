@@ -16,7 +16,7 @@
 </div>
 <div style="margin-bottom:1.25rem;">
 <label class="form-label" style="color:rgba(255,255,255,0.7);">Konfirmasi Kehadiran *</label>
-<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.5rem;">
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
 <label style="cursor:pointer;">
 <input type="radio" name="attendance_status" value="hadir" checked style="display:none;" class="rsvp-r">
 <div class="rsvp-opt" style="padding:0.75rem 0.25rem;border:1px solid rgba(201,168,76,0.3);text-align:center;font-size:0.75rem;transition:all 0.2s;min-height:48px;display:flex;align-items:center;justify-content:center;background:#C9A84C;color:#1F3530;font-weight:600;border-radius:4px;">✓ Hadir</div>
