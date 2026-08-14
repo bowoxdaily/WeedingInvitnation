@@ -32,7 +32,7 @@
         </div>
     @endif
     <input type="file" name="groom_photo_file" accept="image/jpeg,image/png,image/webp" class="form-input" style="padding:0.4rem;">
-    <small style="display:block;color:#888;margin-top:0.25rem;">Pilih foto baru untuk mengganti foto saat ini (maks. 5MB).</small>
+    <small style="display:block;color:#888;margin-top:0.25rem;">Pilih foto baru untuk mengganti foto saat ini (maks. 10MB).</small>
     <input type="hidden" name="groom_photo" value="{{ $settings['groom_photo'] ?? '' }}">
 </div>
 </div>
@@ -52,7 +52,7 @@
         </div>
     @endif
     <input type="file" name="bride_photo_file" accept="image/jpeg,image/png,image/webp" class="form-input" style="padding:0.4rem;">
-    <small style="display:block;color:#888;margin-top:0.25rem;">Pilih foto baru untuk mengganti foto saat ini (maks. 5MB).</small>
+    <small style="display:block;color:#888;margin-top:0.25rem;">Pilih foto baru untuk mengganti foto saat ini (maks. 10MB).</small>
     <input type="hidden" name="bride_photo" value="{{ $settings['bride_photo'] ?? '' }}">
 </div>
 </div>

@@ -1820,7 +1820,13 @@ nav.mobile-nav-bar a:active {
 
 /* ADMIN */
 .admin-sidebar { background-color: #1F3530; min-height: 100vh; }
+.admin-sidebar-panel { width: 240px; flex-shrink: 0; position: fixed; inset: 0 auto 0 0; height: 100vh; overflow-y: auto; z-index: 100; }
+.admin-main { flex: 1; min-width: 0; margin-left: 240px; }
 .admin-nav-link { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; color: rgba(255,255,255,0.7); font-size: 0.875rem; font-weight: 500; transition: all 0.2s ease; text-decoration: none; border-left: 3px solid transparent; }
 .admin-nav-link:hover,.admin-nav-link.active { color: white; background: rgba(255,255,255,0.08); border-left-color: #C9A84C; }
 .stat-card { background: white; padding: 1.5rem; box-shadow: 0 1px 8px rgba(0,0,0,0.06); border-left: 4px solid #C9A84C; }
+@media (max-width: 767px) {
+  .admin-main { margin-left: 0; }
+  .admin-sidebar-panel { width: 240px; }
+}
 

@@ -19,16 +19,20 @@ class SettingController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'groom_photo_file'   => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',
-            'bride_photo_file'   => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',
-            'hero_photo_file'    => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',
-            'closing_photo_file' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',
-            'qris_image_file'    => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',
+            'groom_photo_file'   => 'nullable|image|mimes:jpeg,png,jpg,webp|max:10240',
+            'bride_photo_file'   => 'nullable|image|mimes:jpeg,png,jpg,webp|max:10240',
+            'hero_photo_file'    => 'nullable|image|mimes:jpeg,png,jpg,webp|max:10240',
+            'closing_photo_file' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:10240',
+            'qris_image_file'    => 'nullable|image|mimes:jpeg,png,jpg,webp|max:10240',
             'music_file_upload'  => 'nullable|file|mimes:mp3,wav,m4a,ogg,audio/mpeg,audio/mp3,mpga|max:20480',
             'love_story'         => 'nullable|array',
             'love_story.*.year'  => 'nullable|string|max:50',
             'love_story.*.title' => 'nullable|string|max:255',
             'love_story.*.description' => 'nullable|string',
+        ], [
+            '*.image' => 'File harus berupa gambar yang valid.',
+            '*.mimes' => 'Format file harus JPG, JPEG, PNG, atau WEBP.',
+            '*.max' => 'Ukuran file maksimal 10MB.',
         ]);
 
         $fileFields = [

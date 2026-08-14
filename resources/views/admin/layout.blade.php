@@ -21,7 +21,7 @@
      x-cloak>
 </div>
 
-<aside class="admin-sidebar transform transition-transform duration-300 ease-in-out" 
+<aside class="admin-sidebar admin-sidebar-panel transform transition-transform duration-300 ease-in-out"
        :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'"
        style="width:240px;flex-shrink:0;position:fixed;height:100vh;overflow-y:auto;z-index:100;">
 <div style="padding:1.5rem 1rem;border-bottom:1px solid rgba(255,255,255,0.08);">
@@ -44,7 +44,7 @@
 </form>
 </nav>
 </aside>
-<main class="ml-0 md:ml-[240px]" style="flex:1;min-height:100vh;">
+<main class="admin-main" style="min-height:100vh;">
 <header style="background:white;padding:1rem 1.5rem;border-bottom:1px solid #e5e5e5;display:flex;align-items:center;justify-content:space-between;gap:0.75rem;position:sticky;top:0;z-index:50;">
 <div style="display:flex;align-items:center;gap:0.75rem;">
     <!-- Hamburger Menu Button -->
